@@ -1,3 +1,4 @@
+
 import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
@@ -8,6 +9,17 @@ import ContactForm from "@/components/ContactForm";
 
 const Index = () => {
   const [showContactForm, setShowContactForm] = useState(false);
+  const [activeTab, setActiveTab] = useState("quienes-somos");
+
+  const handleNavigation = (section: string) => {
+    if (section === "inicio") {
+      document.getElementById("inicio")?.scrollIntoView({ behavior: "smooth" });
+    } else {
+      // Scroll to tabs section and set active tab
+      document.getElementById("main-tabs")?.scrollIntoView({ behavior: "smooth" });
+      setActiveTab(section);
+    }
+  };
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-blue-50 via-white to-green-50">
@@ -18,10 +30,10 @@ const Index = () => {
             Heytuna.Cloud
           </div>
           <div className="hidden md:flex space-x-6">
-            <a href="#inicio" className="text-gray-600 hover:text-blue-600 transition-colors">Inicio</a>
-            <a href="#quienes-somos" className="text-gray-600 hover:text-blue-600 transition-colors">Quiénes Somos</a>
-            <a href="#productos" className="text-gray-600 hover:text-blue-600 transition-colors">Productos</a>
-            <a href="#contacto" className="text-gray-600 hover:text-blue-600 transition-colors">Contacto</a>
+            <button onClick={() => handleNavigation("inicio")} className="text-gray-600 hover:text-blue-600 transition-colors">Inicio</button>
+            <button onClick={() => handleNavigation("quienes-somos")} className="text-gray-600 hover:text-blue-600 transition-colors">Quiénes Somos</button>
+            <button onClick={() => handleNavigation("productos")} className="text-gray-600 hover:text-blue-600 transition-colors">Productos</button>
+            <button onClick={() => handleNavigation("contacto")} className="text-gray-600 hover:text-blue-600 transition-colors">Contacto</button>
           </div>
         </div>
       </nav>
@@ -86,9 +98,9 @@ const Index = () => {
       </section>
 
       {/* Main Content Tabs */}
-      <section className="py-16 px-4">
+      <section id="main-tabs" className="py-16 px-4">
         <div className="container mx-auto max-w-6xl">
-          <Tabs defaultValue="quienes-somos" className="w-full">
+          <Tabs value={activeTab} onValueChange={setActiveTab} className="w-full">
             <TabsList className="grid w-full grid-cols-3 mb-8">
               <TabsTrigger value="quienes-somos" className="text-lg py-3">
                 <Users className="mr-2 h-5 w-5" />
