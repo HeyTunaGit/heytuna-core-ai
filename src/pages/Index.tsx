@@ -1,4 +1,3 @@
-
 import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
@@ -83,12 +82,6 @@ const Index = () => {
             Olvídate de las barreras de entrada, las implementaciones lentas y las soluciones rígidas. 
             Con nosotros, obtendrás un ERP conversacional e inteligente, diseñado para impulsar tu negocio y adaptarse a tus necesidades reales.
           </p>
-          <div className="bg-gray-100 p-6 rounded-lg">
-            <h3 className="text-xl font-semibold mb-4">Nuestros Clientes</h3>
-            <Badge variant="outline" className="text-lg px-6 py-2">
-              Heben
-            </Badge>
-          </div>
         </div>
       </section>
 
