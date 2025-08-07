@@ -108,7 +108,7 @@ const ContactForm = ({ onClose }: ContactFormProps) => {
                 value={formData.telefono}
                 onChange={(e) => handleInputChange("telefono", e.target.value)}
                 className="pl-10 border-gray-300 focus:border-blue-500"
-                placeholder="+54 11 1234-5678"
+                placeholder="11 1234-5678"
               />
             </div>
           </div>
