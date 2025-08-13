@@ -1,15 +1,31 @@
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Badge } from "@/components/ui/badge";
 import { MessageSquare, Zap, Building2, Rocket, Brain, Settings, Users, Mail, Phone, Globe, User } from "lucide-react";
 import ContactForm from "@/components/ContactForm";
+import { Popover, PopoverTrigger, PopoverContent } from "@/components/ui/popover";
+import { useSearchParams } from "react-router-dom";
 
 const Index = () => {
   const [showContactForm, setShowContactForm] = useState(false);
   const [activeTab, setActiveTab] = useState("quienes-somos");
+  const [searchParams, setSearchParams] = useSearchParams();
+  const lang = searchParams.get("lang") === "en" ? "en" : "es";
+  useEffect(() => {
+    document.documentElement.setAttribute("lang", lang);
+  }, [lang]);
+  const t = (lang === "en"
+    ? { nav: { inicio: "Home", quienes: "About Us", productos: "Products", contacto: "Contact" }, cta: "Request Demo" }
+    : { nav: { inicio: "Inicio", quienes: "Quiénes Somos", productos: "Productos", contacto: "Contacto" }, cta: "Solicitar Demo" }
+  );
+  const setLang = (next: "es" | "en") => {
+    const sp = new URLSearchParams(searchParams);
+    sp.set("lang", next);
+    setSearchParams(sp, { replace: true });
+  };
 
   const handleNavigation = (section: string) => {
     if (section === "inicio") {
@@ -29,11 +45,35 @@ const Index = () => {
           <div className="text-2xl font-bold bg-gradient-to-r from-blue-600 to-green-600 bg-clip-text text-transparent">
             Heytuna.Cloud
           </div>
-          <div className="hidden md:flex space-x-6">
-            <button onClick={() => handleNavigation("inicio")} className="text-gray-600 hover:text-blue-600 transition-colors">Inicio</button>
-            <button onClick={() => handleNavigation("quienes-somos")} className="text-gray-600 hover:text-blue-600 transition-colors">Quiénes Somos</button>
-            <button onClick={() => handleNavigation("productos")} className="text-gray-600 hover:text-blue-600 transition-colors">Productos</button>
-            <button onClick={() => handleNavigation("contacto")} className="text-gray-600 hover:text-blue-600 transition-colors">Contacto</button>
+          <div className="flex items-center gap-4">
+            <div className="hidden md:flex space-x-6">
+              <button onClick={() => handleNavigation("inicio")} className="text-gray-600 hover:text-blue-600 transition-colors">{t.nav.inicio}</button>
+              <button onClick={() => handleNavigation("quienes-somos")} className="text-gray-600 hover:text-blue-600 transition-colors">{t.nav.quienes}</button>
+              <button onClick={() => handleNavigation("productos")} className="text-gray-600 hover:text-blue-600 transition-colors">{t.nav.productos}</button>
+              <button onClick={() => handleNavigation("contacto")} className="text-gray-600 hover:text-blue-600 transition-colors">{t.nav.contacto}</button>
+            </div>
+            <Popover>
+              <PopoverTrigger asChild>
+                <button
+                  className="p-2 rounded-full hover:bg-accent"
+                  aria-label={lang === "en" ? "Change language" : "Cambiar idioma"}
+                >
+                  <Globe className="h-5 w-5 text-gray-600" />
+                </button>
+              </PopoverTrigger>
+              <PopoverContent align="end" className="w-40">
+                <div className="flex flex-col">
+                  <button onClick={() => setLang("es")} className="flex items-center justify-between px-2 py-1.5 rounded hover:bg-accent" aria-label="Español">
+                    <span>Español</span>
+                    <span>🇪🇸</span>
+                  </button>
+                  <button onClick={() => setLang("en")} className="flex items-center justify-between px-2 py-1.5 rounded hover:bg-accent" aria-label="English">
+                    <span>English</span>
+                    <span>🇬🇧</span>
+                  </button>
+                </div>
+              </PopoverContent>
+            </Popover>
           </div>
         </div>
       </nav>
@@ -65,7 +105,7 @@ const Index = () => {
                 className="bg-gradient-to-r from-blue-600 to-green-600 hover:from-blue-700 hover:to-green-700 text-white px-8 py-6 text-lg rounded-full shadow-lg hover:shadow-xl transform hover:scale-105 transition-all duration-200"
               >
                 <MessageSquare className="mr-2 h-5 w-5" />
-                Solicitar Demo
+                {t.cta}
               </Button>
             </div>
             <div className="relative">
@@ -104,15 +144,15 @@ const Index = () => {
             <TabsList className="grid w-full grid-cols-3 mb-8">
               <TabsTrigger value="quienes-somos" className="text-lg py-3">
                 <Users className="mr-2 h-5 w-5" />
-                Quiénes Somos
+                {t.nav.quienes}
               </TabsTrigger>
               <TabsTrigger value="productos" className="text-lg py-3">
                 <Settings className="mr-2 h-5 w-5" />
-                Productos
+                {t.nav.productos}
               </TabsTrigger>
               <TabsTrigger value="contacto" className="text-lg py-3">
                 <Mail className="mr-2 h-5 w-5" />
-                Contacto
+                {t.nav.contacto}
               </TabsTrigger>
             </TabsList>
 
@@ -260,7 +300,7 @@ const Index = () => {
           <Card className="w-full max-w-lg">
             <CardHeader>
               <CardTitle className="flex justify-between items-center">
-                Solicitar Demo
+                {t.cta}
                 <Button 
                   variant="ghost" 
                   size="sm" 
