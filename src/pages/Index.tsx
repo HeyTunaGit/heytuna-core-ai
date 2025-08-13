@@ -13,9 +13,12 @@ const Index = () => {
   const [showContactForm, setShowContactForm] = useState(false);
   const [activeTab, setActiveTab] = useState("quienes-somos");
   const [searchParams, setSearchParams] = useSearchParams();
-  const lang = searchParams.get("lang") === "en" ? "en" : "es";
+  const langParam = searchParams.get("lang");
+  const storedLang = typeof window !== "undefined" ? localStorage.getItem("lang") : null;
+  const lang: "es" | "en" = langParam === "en" || langParam === "es" ? (langParam as "es" | "en") : (storedLang === "en" ? "en" : "es");
   useEffect(() => {
     document.documentElement.setAttribute("lang", lang);
+    try { localStorage.setItem("lang", lang); } catch {}
   }, [lang]);
   const t = (lang === "en"
     ? {
@@ -117,6 +120,7 @@ const Index = () => {
     const sp = new URLSearchParams(searchParams);
     sp.set("lang", next);
     setSearchParams(sp, { replace: true });
+    try { localStorage.setItem("lang", next); } catch {}
   };
 
   const handleNavigation = (section: string) => {
