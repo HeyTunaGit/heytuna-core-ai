@@ -22,7 +22,7 @@ const Index = () => {
   }, [lang]);
   const t = (lang === "en"
     ? {
-      nav: { inicio: "Home", quienes: "About Us", productos: "Products", contacto: "Contact" },
+      nav: { inicio: "Home", quienes: "About Us", productos: "Products", contacto: "Free Odoo Trial" },
       cta: "Request Demo",
       modalTitle: "Request Demo",
       hero: {
@@ -69,7 +69,7 @@ const Index = () => {
       }
     }
     : {
-      nav: { inicio: "Inicio", quienes: "Quiénes Somos", productos: "Productos", contacto: "Contacto" },
+      nav: { inicio: "Inicio", quienes: "Quiénes Somos", productos: "Productos", contacto: "Prueba Gratis Odoo" },
       cta: "Solicitar Demo",
       modalTitle: "Solicitar Demo",
       hero: {
