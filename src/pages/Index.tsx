@@ -243,7 +243,7 @@ const Index = () => {
                 <Settings className="mr-2 h-5 w-5" />
                 {t.nav.productos}
               </TabsTrigger>
-              <TabsTrigger value="contacto" className="text-lg py-3">
+              <TabsTrigger value="contacto" className="text-lg py-3 data-[state=active]:bg-blue-900 data-[state=active]:text-white data-[state=inactive]:text-blue-900 hover:text-blue-900">
                 <Mail className="mr-2 h-5 w-5" />
                 {t.nav.contacto}
               </TabsTrigger>
