@@ -11,7 +11,7 @@ import { useSearchParams } from "react-router-dom";
 
 const Index = () => {
   const [showContactForm, setShowContactForm] = useState(false);
-  const [activeTab, setActiveTab] = useState("quienes-somos");
+  const [activeTab, setActiveTab] = useState("contacto");
   const [searchParams, setSearchParams] = useSearchParams();
   const langParam = searchParams.get("lang");
   const storedLang = typeof window !== "undefined" ? localStorage.getItem("lang") : null;
