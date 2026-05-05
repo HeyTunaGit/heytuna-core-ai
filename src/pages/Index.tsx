@@ -302,15 +302,15 @@ const Index = () => {
           </div>
           <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6 mb-12">
             {[
-              { i: Boxes, t: t.odoo.f1t, d: t.odoo.f1d, c: "blue" },
-              { i: Layers, t: t.odoo.f2t, d: t.odoo.f2d, c: "green" },
-              { i: Sparkles, t: t.odoo.f3t, d: t.odoo.f3d, c: "purple" },
-              { i: Monitor, t: t.odoo.f4t, d: t.odoo.f4d, c: "orange" },
-            ].map(({ i: Icon, t: title, d, c }) => (
+              { i: Boxes, t: t.odoo.f1t, d: t.odoo.f1d, bg: "bg-blue-100", fg: "text-blue-600" },
+              { i: Layers, t: t.odoo.f2t, d: t.odoo.f2d, bg: "bg-green-100", fg: "text-green-600" },
+              { i: Sparkles, t: t.odoo.f3t, d: t.odoo.f3d, bg: "bg-purple-100", fg: "text-purple-600" },
+              { i: Monitor, t: t.odoo.f4t, d: t.odoo.f4d, bg: "bg-orange-100", fg: "text-orange-600" },
+            ].map(({ i: Icon, t: title, d, bg, fg }) => (
               <Card key={title} className="border-0 shadow-md hover:shadow-xl transition-shadow">
                 <CardContent className="p-6 text-center space-y-3">
-                  <div className={`mx-auto w-12 h-12 rounded-full flex items-center justify-center bg-${c}-100`}>
-                    <Icon className={`h-6 w-6 text-${c}-600`} />
+                  <div className={`mx-auto w-12 h-12 rounded-full flex items-center justify-center ${bg}`}>
+                    <Icon className={`h-6 w-6 ${fg}`} />
                   </div>
                   <h3 className="font-semibold text-gray-800">{title}</h3>
                   <p className="text-sm text-gray-600">{d}</p>
