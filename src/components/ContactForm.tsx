@@ -3,6 +3,7 @@ import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
+import { Textarea } from "@/components/ui/textarea";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { Card, CardContent } from "@/components/ui/card";
 import { toast } from "sonner";
@@ -19,12 +20,13 @@ const ContactForm = ({ onClose }: ContactFormProps) => {
     email: "",
     telefono: "",
     website: "",
-    empleados: ""
+    empleados: "",
+    mensaje: "",
   });
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    
+
     if (!formData.email || !formData.website) {
       toast.error("Por favor completa todos los campos obligatorios");
       return;
@@ -32,27 +34,24 @@ const ContactForm = ({ onClose }: ContactFormProps) => {
 
     console.log("Form submitted:", formData);
     toast.success("¡Solicitud de demo enviada exitosamente! Nos contactaremos contigo pronto.");
-    
+
     if (onClose) {
       onClose();
     }
 
-    // Reset form
     setFormData({
       nombre: "",
       apellido: "",
       email: "",
       telefono: "",
       website: "",
-      empleados: ""
+      empleados: "",
+      mensaje: "",
     });
   };
 
   const handleInputChange = (field: string, value: string) => {
-    setFormData(prev => ({
-      ...prev,
-      [field]: value
-    }));
+    setFormData((prev) => ({ ...prev, [field]: value }));
   };
 
   return (
@@ -62,23 +61,11 @@ const ContactForm = ({ onClose }: ContactFormProps) => {
           <div className="grid md:grid-cols-2 gap-4">
             <div className="space-y-2">
               <Label htmlFor="nombre">Nombre *</Label>
-              <Input
-                id="nombre"
-                value={formData.nombre}
-                onChange={(e) => handleInputChange("nombre", e.target.value)}
-                required
-                className="border-gray-300 focus:border-blue-500"
-              />
+              <Input id="nombre" value={formData.nombre} onChange={(e) => handleInputChange("nombre", e.target.value)} required />
             </div>
             <div className="space-y-2">
               <Label htmlFor="apellido">Apellido *</Label>
-              <Input
-                id="apellido"
-                value={formData.apellido}
-                onChange={(e) => handleInputChange("apellido", e.target.value)}
-                required
-                className="border-gray-300 focus:border-blue-500"
-              />
+              <Input id="apellido" value={formData.apellido} onChange={(e) => handleInputChange("apellido", e.target.value)} required />
             </div>
           </div>
 
@@ -86,30 +73,15 @@ const ContactForm = ({ onClose }: ContactFormProps) => {
             <Label htmlFor="email">Email *</Label>
             <div className="relative">
               <Mail className="absolute left-3 top-3 h-4 w-4 text-gray-400" />
-              <Input
-                id="email"
-                type="email"
-                value={formData.email}
-                onChange={(e) => handleInputChange("email", e.target.value)}
-                required
-                className="pl-10 border-gray-300 focus:border-blue-500"
-                placeholder="tu@empresa.com"
-              />
+              <Input id="email" type="email" value={formData.email} onChange={(e) => handleInputChange("email", e.target.value)} required className="pl-10" placeholder="tu@empresa.com" />
             </div>
           </div>
 
           <div className="space-y-2">
-            <Label htmlFor="telefono">Teléfono (opcional)</Label>
+            <Label htmlFor="telefono">Teléfono *</Label>
             <div className="relative">
               <Phone className="absolute left-3 top-3 h-4 w-4 text-gray-400" />
-              <Input
-                id="telefono"
-                type="tel"
-                value={formData.telefono}
-                onChange={(e) => handleInputChange("telefono", e.target.value)}
-                className="pl-10 border-gray-300 focus:border-blue-500"
-                placeholder="11 1234-5678"
-              />
+              <Input id="telefono" type="tel" value={formData.telefono} onChange={(e) => handleInputChange("telefono", e.target.value)} className="pl-10" placeholder="11 1234-5678" required />
             </div>
           </div>
 
@@ -117,24 +89,16 @@ const ContactForm = ({ onClose }: ContactFormProps) => {
             <Label htmlFor="website">Website *</Label>
             <div className="relative">
               <Globe className="absolute left-3 top-3 h-4 w-4 text-gray-400" />
-              <Input
-                id="website"
-                type="url"
-                value={formData.website}
-                onChange={(e) => handleInputChange("website", e.target.value)}
-                required
-                className="pl-10 border-gray-300 focus:border-blue-500"
-                placeholder="https://tuempresa.com"
-              />
+              <Input id="website" type="url" value={formData.website} onChange={(e) => handleInputChange("website", e.target.value)} required className="pl-10" placeholder="https://tuempresa.com" />
             </div>
           </div>
 
           <div className="space-y-2">
-            <Label htmlFor="empleados">Número de Empleados (opcional)</Label>
+            <Label htmlFor="empleados">Número de Empleados</Label>
             <div className="relative">
               <Users className="absolute left-3 top-3 h-4 w-4 text-gray-400" />
               <Select value={formData.empleados} onValueChange={(value) => handleInputChange("empleados", value)}>
-                <SelectTrigger className="pl-10 border-gray-300 focus:border-blue-500">
+                <SelectTrigger className="pl-10">
                   <SelectValue placeholder="Selecciona el tamaño de tu empresa" />
                 </SelectTrigger>
                 <SelectContent>
@@ -146,6 +110,18 @@ const ContactForm = ({ onClose }: ContactFormProps) => {
                 </SelectContent>
               </Select>
             </div>
+          </div>
+
+          <div className="space-y-2">
+            <Label htmlFor="mensaje">Mensaje</Label>
+            <Textarea
+              id="mensaje"
+              value={formData.mensaje}
+              onChange={(e) => handleInputChange("mensaje", e.target.value)}
+              rows={4}
+              className="text-gray-500 placeholder:text-gray-400"
+              placeholder="¿Qué es lo que más complica en la operación? ¿Tienen un sistema implementado?"
+            />
           </div>
 
           <Button
